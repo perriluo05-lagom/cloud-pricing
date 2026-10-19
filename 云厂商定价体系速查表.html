@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://cowork.xiaohongshu.com/f/sr-c34dbcf3/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>云厂商定价体系速查表</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text: #1a202c;
+    --text-secondary: #64748b;
+    --accent: #2563eb;
+    --aws: #ff9900;
+    --gcp: #4285f4;
+    --azure: #0078d4;
+    --aliyun: #ff6a00;
+    --warn-bg: #fef3c7;
+    --warn-border: #f59e0b;
+    --warn-text: #92400e;
+    --tip-bg: #dbeafe;
+    --tip-border: #3b82f6;
+    --tip-text: #1e40af;
+    --code-bg: #f1f5f9;
+    --code-text: #475569;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #1e3a5f 100%);
+    color: #fff;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .hero p {
+    font-size: 14px;
+    opacity: 0.85;
+  }
+  .hero .update {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 8px;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+  }
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .nav a {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .nav a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  section {
+    margin-bottom: 72px;
+    scroll-margin-top: 20px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .section-title .num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    padding-left: 42px;
+  }
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--text);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #fafbfc; }
+  tr:hover td { background: #eff6ff; }
+  .vendor-aws { color: var(--aws); font-weight: 600; }
+  .vendor-gcp { color: var(--gcp); font-weight: 600; }
+  .vendor-azure { color: var(--azure); font-weight: 600; }
+  .vendor-aliyun { color: var(--aliyun); font-weight: 600; }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tag-aws { background: #fff3e0; color: #e65100; }
+  .tag-gcp { background: #e8f0fe; color: #1967d2; }
+  .tag-azure { background: #e0f2fe; color: #075985; }
+  .tag-aliyun { background: #fff3e0; color: #bf360c; }
+  .tag-net { background: #e0f2fe; color: #075985; }
+  .tag-store { background: #f0fdf4; color: #166534; }
+  .tag-warn { background: var(--warn-bg); color: var(--warn-text); }
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .pill-blue { background: #dbeafe; color: #1e40af; }
+  .pill-amber { background: #fef3c7; color: #92400e; }
+  .pill-green { background: #d1fae5; color: #065f46; }
+  .pill-gray { background: #f1f5f9; color: #475569; }
+  .pill-purple { background: #ede9fe; color: #5b21b6; }
+  code {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+  }
+  .warn-box {
+    background: var(--warn-bg);
+    border-left: 4px solid var(--warn-border);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--warn-text);
+    margin-top: 8px;
+    font-weight: 500;
+  }
+  .warn-box::before {
+    content: "";
+  }
+  .note {
+    background: #eff6ff;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #1e3a5f;
+    margin-bottom: 20px;
+  }
+  .note strong { color: var(--accent); }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .card-head .icon {
+    font-size: 18px;
+  }
+  .card-head h4 {
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+  }
+  .card-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  .card-row .label {
+    color: var(--text-secondary);
+    min-width: 64px;
+    flex-shrink: 0;
+  }
+  .card-row .val {
+    color: var(--text);
+    flex: 1;
+  }
+  .card .warn-box {
+    margin-top: 8px;
+  }
+  .formula {
+    background: #f8f9fa;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 8px 0;
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+  }
+  .discount-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+    padding: 16px;
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .chain-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+  }
+  .chain-step {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .chain-arrow {
+    color: var(--text-secondary);
+    font-size: 16px;
+    text-align: center;
+    padding: 2px 0;
+  }
+  .gcp-step { background: #e8f0fe; color: #1967d2; }
+  .aws-step { background: #fff3e0; color: #e65100; }
+  .chain-final { background: #d1fae5; color: #065f46; font-weight: 600; }
+  .chain-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .col-w { width: 22%; }
+  .col-m { width: 19.5%; }
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 22px; }
+    .container { padding: 20px 12px 40px; }
+    .card-grid { grid-template-columns: 1fr; }
+    table { font-size: 12px; }
+    th, td { padding: 8px; }
+  }
+</style>
+<script src="./云厂商定价体系速查表_files/uba-script.js"></script><script src="./云厂商定价体系速查表_files/apm-insight.min.js" async="" crossorigin="anonymous"></script><script src="./云厂商定价体系速查表_files/104101b831udegmhb2q06chlqrg9000000000018ckkuf4.js"></script></head>
+<body>
+
+<div class="hero">
+  <h1>☁️ 云厂商定价体系速查表</h1>
+  <p>AWS · GCP · Azure · 阿里云 — 定价模式 / 折扣机制 / 计价单位 / 网络与存储分类</p>
+  <p class="update">2026-08 更新</p>
+</div>
+
+<div class="container">
+
+<div class="nav">
+  <a href="https://cowork.xiaohongshu.com/f/sr-c34dbcf3/#s1">① 定价模式与折扣</a>
+  <a href="https://cowork.xiaohongshu.com/f/sr-c34dbcf3/#s2">② 术语速查</a>
+  <a href="https://cowork.xiaohongshu.com/f/sr-c34dbcf3/#s3">③ 五大件计价单位</a>
+  <a href="https://cowork.xiaohongshu.com/f/sr-c34dbcf3/#s4">④ 网络分类详解</a>
+  <a href="https://cowork.xiaohongshu.com/f/sr-c34dbcf3/#s5">⑤ 存储分类详解</a>
+</div>
+
+<!-- ==================== Section 1 ==================== -->
+<section id="s1">
+  <div class="section-title">
+    <div class="num">1</div>
+    <h2>定价模式与折扣</h2>
+  </div>
+  <p class="section-desc">三大厂 + 阿里云的「怎么买」和「怎么打折」，从刊例价到成交价的完整链路</p>
+
+  <div class="note">
+    <strong>记忆口诀：</strong> RI 是 AWS、CUD 是 GCP、RVI 是 Azure — 承诺折扣缩写 R-C-R。GCP 独有 SUD（自动折扣）和 Premium/Standard（网络分层）。阿里云承诺折扣也叫 RI（预留实例），和 AWS 缩写撞车但不是同一套体系。
+  </div>
+
+  <h3 style="font-size:15px;font-weight:600;margin:24px 0 12px;color:var(--text)">一、定价模式（怎么买）</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th class="col-w">维度</th>
+        <th>AWS</th>
+        <th>GCP</th>
+        <th>Azure</th>
+        <th>阿里云</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="pill pill-blue">按需</span> 随时用随时付，最贵</td>
+        <td>On-Demand</td><td>On-Demand</td><td>Pay-As-You-Go</td><td>按量付费</td>
+      </tr>
+      <tr>
+        <td><span class="pill pill-amber">竞价</span> 抢闲置产能，便宜但可能被中断</td>
+        <td>Spot Instance</td><td>Spot / Preemptible VM</td><td>Spot VM</td><td>竞价实例</td>
+      </tr>
+      <tr>
+        <td><span class="pill pill-green">承诺</span> 锁 1-3 年换折扣</td>
+        <td>Reserved Instance（RI）/ Savings Plans（SP）</td><td>Committed Use Discount（CUD）</td><td>Reserved VM Instance（RVI）</td><td>预留实例（RI）</td>
+      </tr>
+      <tr>
+        <td style="padding-left:28px">└ 承诺周期</td>
+        <td>1 年 / 3 年</td><td>1 年 / 3 年</td><td>1 年 / 3 年</td><td>1 年 / 3 年</td>
+      </tr>
+      <tr>
+        <td style="padding-left:28px">└ 预付档位</td>
+        <td>No / Partial / All Upfront（三档）</td><td>无档位区分</td><td>No / Partial / All Upfront</td><td>预付 / 不预付（两档）</td>
+      </tr>
+      <tr>
+        <td style="padding-left:28px">└ 绑定粒度</td>
+        <td>RI：绑 Region + 机型；SP：不绑机型 Region，自动适用</td><td>看类型（见下方 CUD 说明）</td><td>绑 Region + 机型大小，可换大小</td><td>绑 Region + 机型</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:600;margin:24px 0 12px;color:var(--text)">二、折扣机制（怎么打折）</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th class="col-w">维度</th>
+        <th>AWS</th><th>GCP</th><th>Azure</th><th>阿里云</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>自动折扣<br><span style="font-size:11px;color:var(--text-secondary)">不用承诺、不用谈，自动生效</span></td>
+        <td>无</td>
+        <td><span class="vendor-gcp">SUD</span><br><span style="font-size:11px">跑满整月自动生效，最高约 30% off</span></td>
+        <td>无</td><td>无</td>
+      </tr>
+      <tr>
+        <td>承诺折扣<br><span style="font-size:11px;color:var(--text-secondary)">锁 1-3 年换的折扣</span></td>
+        <td><span class="vendor-aws">RI / SP</span>，最高 72% off<br><span style="font-size:11px">Compute SP 最高 66%，EC2 Instance SP 最高 72%</span></td>
+        <td><span class="vendor-gcp">CUD</span>，最高约 55% off<br><span style="font-size:11px">内存优化约 70%</span></td>
+        <td><span class="vendor-azure">RVI</span>，最高约 72% off</td>
+        <td>预留实例折扣，3 年最高约 55% off</td>
+      </tr>
+      <tr>
+        <td>商务协议折扣<br><span style="font-size:11px;color:var(--text-secondary)">企业级谈判拿到</span></td>
+        <td>年框折扣<br><span style="font-size:11px">叠加在 Savings Plans 之上</span></td>
+        <td>商务年框折扣（叠加在 CUD 上）</td>
+        <td>EA（Enterprise Agreement）</td>
+        <td>年框折扣（叠加在预留实例上）</td>
+      </tr>
+      <tr>
+        <td>信用额度抵扣<br><span style="font-size:11px;color:var(--text-secondary)">预付金额抵扣账单</span></td>
+        <td>EDP Credits</td>
+        <td>Credits<br><span style="font-size:11px">100M 年框 → 18M credits</span></td>
+        <td>Azure Prepayment</td>
+        <td>代金券</td>
+      </tr>
+      <tr>
+        <td>其他特殊折扣</td>
+        <td>返券（返点）</td>
+        <td>SBD（Spending Based Discount）</td>
+        <td>Azure Hybrid Benefit<br><span style="font-size:11px">Windows 授权复用</span></td>
+        <td>返券（返点）</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:600;margin:24px 0 12px;color:var(--text)">三、计费与网络特性</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th class="col-w">维度</th><th>AWS</th><th>GCP</th><th>Azure</th><th>阿里云</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>计费粒度</td><td>按秒，最小 60 秒</td><td>按秒，最小 10 分钟</td><td>按秒，最小 60 秒</td><td>按秒，最小 60 秒</td>
+      </tr>
+      <tr>
+        <td>自定义机型</td><td>不支持</td><td>支持<br><span style="font-size:11px">Custom Machine Type，自由配 vCPU 和内存比例</span></td><td>不支持</td><td>不支持</td>
+      </tr>
+      <tr>
+        <td>网络分层</td><td>无层级区分</td><td><span class="vendor-gcp">Premium</span>（走 Google 骨干网，贵）/ <span class="vendor-gcp">Standard</span>（走公网，便宜）</td><td>无层级区分</td><td>无（但公网分国内 BGP / 国际 BGP）</td>
+      </tr>
+      <tr>
+        <td>存储分层</td><td>块存储按性能分档（PL0=gp3 / PL2=io2）；对象存储按冗余 + 访问频率分档</td><td>标准 / 近线 / 冷线 / 归档四级</td><td>标准 / 热 / 冷三级</td><td>与 AWS 分类基本对应（PL0-PL2 / 标准 / 冷存档）</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:600;margin:28px 0 12px;color:var(--text)">GCP 独有：CUD 两种类型</h3>
+  <div class="note">
+    GCP 承诺折扣（CUD）分两种类型，其他厂商没有这个分法。Resource-based 绑死 Region+机型但折扣大；Compute Flexible 灵活跨 Region 跨项目但折扣略小。
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th class="col-w">维度</th><th>Resource-based CUD</th><th>Compute Flexible CUD</th></tr></thead>
+    <tbody>
+      <tr><td>承诺对象</td><td>特定 Region + 机型的 vCPU/内存/GPU/Local SSD</td><td>每小时消费金额（$/hour）</td></tr>
+      <tr><td>能否跨 Region</td><td><span class="pill pill-gray">不能</span> 绑 Region</td><td><span class="pill pill-green">能</span> 跨 Region 跨项目</td></tr>
+      <tr><td>能否换机型</td><td><span class="pill pill-gray">不能</span> 绑机型配置</td><td><span class="pill pill-green">能</span> 只要总消费额达标</td></tr>
+      <tr><td>折扣力度</td><td>更大（3Y 最高约 55% off，内存优化最高约 70%）</td><td>略小</td></tr>
+      <tr><td>适合场景</td><td>稳定负载、固定机型</td><td>多机型混合、迁移期不确定</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:600;margin:28px 0 12px;color:var(--text)">折扣叠加链：从刊例价到成交价</h3>
+  <div class="discount-chain">
+    <div class="chain-label">GCP 折扣链</div>
+    <div class="chain-row">
+      <div class="chain-step gcp-step">官网刊例价</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-step gcp-step">CUD 承诺折扣<br><span style="font-size:11px">约 55% off</span></div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-row">
+      <div class="chain-step gcp-step">商务年框折扣<br><span style="font-size:11px">叠加在 CUD 后，约 46% off</span></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-step gcp-step">Credits 抵扣<br><span style="font-size:11px">年框换算，只摊 CPU</span></div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-row">
+      <div class="chain-step gcp-step">SBD<br><span style="font-size:11px">Spending Based Discount，最后一层</span></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-step chain-final">= 成交价（账单价）</div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="chain-label">AWS 折扣链</div>
+    <div class="chain-row">
+      <div class="chain-step aws-step">官网挂牌价<br><span style="font-size:11px">3Y No Upfront Compute Savings Plans 口径</span></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-step aws-step">年框折扣<br><span style="font-size:11px">叠加在 SP 之上，约 0.27 off</span></div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-row">
+      <div class="chain-step aws-step">返券</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-step aws-step">其他商务折扣</div>
+    </div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-row">
+      <div class="chain-step chain-final" style="grid-column:span 2">= 成交价</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Section 2 ==================== -->
+<section id="s2">
+  <div class="section-title">
+    <div class="num">2</div>
+    <h2>术语速查对照表</h2>
+  </div>
+  <p class="section-desc">四厂商术语一一对照，看到缩写快速定位</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th class="col-w">概念</th><th>AWS</th><th>GCP</th><th>Azure</th><th>阿里云</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>按需</td><td>On-Demand</td><td>On-Demand</td><td>Pay-As-You-Go</td><td>按量付费</td></tr>
+      <tr><td>竞价</td><td>Spot Instance</td><td>Spot / Preemptible VM</td><td>Spot VM</td><td>竞价实例</td></tr>
+      <tr><td>承诺折扣</td><td><span class="vendor-aws">RI</span>（Reserved Instance）</td><td><span class="vendor-gcp">CUD</span>（Committed Use Discount）</td><td><span class="vendor-azure">RVI</span>（Reserved VM Instance）</td><td>预留实例（RI）</td></tr>
+      <tr><td>自动折扣</td><td>无</td><td><span class="vendor-gcp">SUD</span>（Sustained Use Discount）</td><td>无</td><td>无</td></tr>
+      <tr><td>企业协议</td><td>Compute Savings Plans（承诺折扣，非渠道协议）</td><td>商务年框</td><td>EA（Enterprise Agreement）</td><td>年框折扣</td></tr>
+      <tr><td>信用抵扣</td><td>EDP Credits</td><td>Credits</td><td>Azure Prepayment</td><td>代金券</td></tr>
+      <tr><td>网络分层</td><td>无</td><td>Premium / Standard Tier</td><td>无</td><td>无（分国内/国际 BGP）</td></tr>
+      <tr><td>跨 Region 灵活承诺</td><td>Compute Savings Plans</td><td>Compute Flexible CUD</td><td>不支持</td><td>不支持</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ==================== Section 3 ==================== -->
+<section id="s3">
+  <div class="section-title">
+    <div class="num">3</div>
+    <h2>五大件计价单位</h2>
+  </div>
+  <p class="section-desc">GPU 整机买单卡比价、CPU 按 vCPU 买、存储和网络各有多种维度不可混用</p>
+
+  <div class="note">
+    <strong>关键区分：</strong>GPU 是"整机买、单卡比价"；CPU 是"按 vCPU 买、单 vCPU 就是最小可比单位"。两者计价逻辑不同，不能混用。GPU 对账不做除法（直接对整机月价），CPU 对账做除法（÷ vCPU）。
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th class="col-w">资源类型</th><th>计价单位</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tag-warn">GPU</span></td>
+        <td><code>整机 USD/月</code><br><span style="font-size:11px">另附单 Slice 价格 = 整机价 ÷ 卡数</span></td>
+        <td>整机封装出售，报价给整机价但比价换算到单卡</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-aws">CPU</span></td>
+        <td><code>USD/vCPU/月</code></td>
+        <td>按单核报价。阿里云 Default Price = 官网包月目录价 ÷ vCPU</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-store">内存</span></td>
+        <td><code>GB</code></td>
+        <td>通常与 CPU 绑定按比例卖（1:2 / 1:4 / 1:8），很少单独计价</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-store">存储 — 块存储</span></td>
+        <td><code>USD/GB/月</code></td>
+        <td>按分配容量计费。阿里云 PL0/PL1/PL2 对应 AWS gp3/gp3 高配/io2。AWS gp3 基线 3000 IOPS 免费，超出另收；io2 按 IOPS 阶梯收费</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-store">存储 — 对象存储（容量）</span></td>
+        <td><code>USD/GB/月</code></td>
+        <td>按存储容量月费。分标准存储/冷存档存储；标准存储再分同城冗余（多 AZ）/本地冗余（单 AZ）。AWS 标准存储按用量阶梯降价</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-store">存储 — 对象存储（流量）</span></td>
+        <td><code>USD/Gbps/月</code> 或 <code>USD/GB/月</code></td>
+        <td>带宽承诺 = 预留速率固定月费（写 &gt; 读）；按量 = 实际传输 GB 计费（回源）。GB 与 Gbps 不可换算：1 Gbps 满速跑一月 ≈ 324 TB</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-net">网络 — 跨 Region</span></td>
+        <td><code>USD/GB</code> 或 <code>USD/Mbps/月</code></td>
+        <td>AWS 按流量、阿里云按带宽包月。同 Region 内通常免费</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-net">网络 — 跨云专线</span></td>
+        <td><code>USD/GB</code> + <code>USD/端口/月</code></td>
+        <td>跨云物理专线，流量费 + 端口费双维度。100Gbps 端口月费数千美金</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-net">网络 — 公网</span></td>
+        <td><code>USD/GB</code> 或 <code>USD/Mbps/天</code></td>
+        <td>AWS 按流量阶梯（10/50/150TB+）；阿里云按带宽包月/包天，分国内/国际 BGP</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-net">网络 — 负载均衡</span></td>
+        <td><code>USD/LCU/小时</code> + <code>USD/小时</code></td>
+        <td>LCU = 负载均衡容量单位（新连接/活跃连接/处理字节/规则评估取最大）；实例费按版本固定。ALB = 七层，NLB = 四层</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-net">网络 — 安全</span></td>
+        <td><code>USD/Mbps/月</code> 或 <code>USD/月</code></td>
+        <td>DDoS 保底套餐 vs 精细计费差 50-100 倍；云防火墙分包年包月版 vs 按量 2.0 版，口径不同</td>
+      </tr>
+      <tr>
+        <td><span class="pill pill-gray">CDN</span></td>
+        <td><code>GB 流量</code></td>
+        <td>$/GB + 请求数</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ==================== Section 4 ==================== -->
+<section id="s4">
+  <div class="section-title">
+    <div class="num">4</div>
+    <h2>网络分类详解</h2>
+  </div>
+  <p class="section-desc">网络的每个子类是什么、怎么收费、为什么需要——按计费维度逐一拆解</p>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">🔄</span>
+        <h4>同云跨 Region 数据流出</h4>
+        <span class="tag tag-net">网络</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">同一个云厂商内部，不同地域之间的数据传输费。如新加坡→北美、中国大陆→新加坡</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/GB</code>（AWS 按流量）<br><code>USD/Mbps/月</code>（阿里云按预留带宽）</span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">用多少传多少付多少（AWS），或包月固定带宽费（阿里云）。跨 Region 传数据是云厂收入项，价格远高于同 Region 内传输（同 Region 内通常免费）</span></div>
+      <div class="warn-box">大流量传输考虑走专线或中转优化；阿里云按带宽包月时利用率低会亏</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">🔌</span>
+        <h4>跨云专线数据流出</h4>
+        <span class="tag tag-net">网络</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">通过物理专线（DX / 专线 / Cloud Exchange）从一个云把数据传到另一个云</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/GB</code>（流量）+ <code>USD/端口/月</code>（端口）</span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">两笔费用叠加：流量费按实际 GB 计 + 端口费固定收（与流量无关）。100Gbps 端口月费可达数千美金</span></div>
+      <div class="warn-box">端口费是固定成本，流量少时占比高。谈判时可谈端口 + 流量包月套餐</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">🌐</span>
+        <h4>公网（共享带宽-BGP）</h4>
+        <span class="tag tag-net">网络</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">业务面向互联网的出口带宽，用户通过公网访问云上资源</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/GB</code>（AWS 按流量阶梯）<br><code>USD/Mbps/天</code>（阿里云按带宽）</span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">AWS 按流量阶梯（10/50/150TB+ 逐级降价）；阿里云按带宽包月/包天。一个按量一个按速</span></div>
+      <div class="warn-box">AWS 无共享带宽包概念，每条 EIP 独立计费；阿里云可多 EIP 共享带宽池。BGP 分国内/国际，国际便宜约一半</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">⚖️</span>
+        <h4>负载均衡 ALB/NLB</h4>
+        <span class="tag tag-net">网络</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">将流量分发到多台后端服务器。ALB 处理 HTTP/HTTPS（七层），NLB 处理 TCP/UDP（四层）</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/LCU/小时</code>（容量）+ <code>USD/小时</code>（实例）</span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">双维度计费：LCU = 负载均衡容量单位，按处理量动态折算（新连接/活跃连接/处理字节/规则评估取最大）；实例费按版本固定。两笔独立叠加</span></div>
+      <div class="warn-box">LCU 和实例费容易填反（ALB LCU=0.007-0.021，实例费按版本），对账时先确认计费维度</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">🛡️</span>
+        <h4>DDoS 防护</h4>
+        <span class="tag tag-net">网络</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">防御分布式拒绝服务攻击。基础版免费/低配，高级版付费</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/Mbps/月</code>（阿里云按防护带宽）<br><code>USD/月</code>（AWS 固定套餐）</span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">阿里云保底防护带宽按套餐（折算 USD/Mbps/月 极低 0.05-0.12），业务带宽精细计费（个位数 USD/Mbps/月），两者差 50-100 倍</span></div>
+      <div class="warn-box">保底防护带宽 vs 业务带宽是两个维度，单价差 50-100 倍。海外版 DDoS 分 3 个子文档（保险/无限/加速），需确认接入模式</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">🔥</span>
+        <h4>云防火墙</h4>
+        <span class="tag tag-net">网络</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">云原生的网络防火墙服务，对 VPC 内流量做访问控制和安全过滤</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/小时</code> + <code>USD/GB</code>（AWS）<br><code>USD/Mbps/月</code> + <code>USD/个</code>（阿里云）</span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">AWS 按端点小时费 + 数据处理费双维度；阿里云包年包月版按实例个数 + 扩容带宽</span></div>
+      <div class="warn-box">表内填的是包年包月版，官网链接可能是按量 2.0 版（按 GB 流量 + 小时实例费），口径完全不同。按量 2.0 还含 IPS / 日志分析等额外计费项</div>
+    </div>
+
+  </div>
+
+  <div class="note" style="margin-top:20px">
+    <strong>为什么网络类比实例难对账：</strong> 实例是一维计价（一台机器一个价），网络是多维计价——一个产品的费用由多个计费维度叠加，各维度单位互不可换算。
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th class="col-w">计费维度</th><th>含义</th><th>典型单位</th><th>代表产品</th><th>为什么容易踩坑</th><th>对账要点</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="pill pill-blue">按量</span> 按实际数据量收费</td><td>用多少付多少</td><td><code>USD/GB</code></td><td>AWS 出口流量、跨 Region 流出</td><td>用量波动大时成本不可预测，预算难做</td><td>用账单 GB × 单价逐月复算</td></tr>
+      <tr><td><span class="pill pill-amber">按速率</span> 按预留带宽收固定月费</td><td>用没用满都付</td><td><code>USD/Mbps/月</code></td><td>阿里云共享带宽、跨 Region 预留带宽</td><td>利用率低就是白花钱；与按量价不可直接比较</td><td>先算带宽利用率，再与按量方案比总成本</td></tr>
+      <tr><td><span class="pill pill-green">固定+用量</span> 固定费与用量费叠加</td><td>固定月费 + 按量费两笔独立</td><td><code>USD/端口/月</code> + <code>USD/GB</code></td><td>跨云专线（DX / 专线 / Cloud Exchange）</td><td>流量少时固定费占比极高，平均单价失真</td><td>拆成端口费、流量费两笔分别对账</td></tr>
+      <tr><td><span class="pill pill-purple">复合单位</span> 厂商自造容量单位</td><td>多项指标折算后取最大值</td><td><code>USD/LCU/小时</code></td><td>负载均衡 ALB/NLB</td><td>单位看不懂就没法比价；LCU 与实例费容易填反</td><td>先查 LCU 定义，LCU 费与实例费分开核</td></tr>
+      <tr><td><span class="pill pill-blue">阶梯</span> 用量分段逐级降价</td><td>每段单价不同</td><td><code>USD/GB</code>（分段）</td><td>AWS 公网出口（10/50/150TB+ 三段）</td><td>平均单价随用量变化，无法用单一单价对账</td><td>按账单分段逐段核对，不做平均</td></tr>
+      <tr><td><span class="pill pill-amber">版本口径</span> 同产品多版本计费不同</td><td>版本不同模式完全不同</td><td>包月 <code>USD/Mbps/月</code> vs 按量 <code>USD/GB</code></td><td>云防火墙（包年包月版 vs 按量付费 2.0）</td><td>官网文档常指向另一版本，数字对不上不一定是填错</td><td>先确认产品版本，再找对应版本的价目</td></tr>
+      <tr><td><strong>对账三步法</strong></td><td colspan="5">网络类对账的标准动作：<strong>第一步认计费维度，第二步对单位，第三步才比价格</strong>——维度不同的两列数字没有可比性，直接比价必错</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ==================== Section 5 ==================== -->
+<section id="s5">
+  <div class="section-title">
+    <div class="num">5</div>
+    <h2>存储分类详解</h2>
+  </div>
+  <p class="section-desc">存储的每个子类是什么、怎么收费、为什么需要——按计费维度逐一拆解</p>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">💾</span>
+        <h4>块存储 — 云盘 PL0</h4>
+        <span class="tag tag-store">存储</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">最低性能档云硬盘，适合系统盘 / 轻量应用。对应 AWS gp3</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/GB/月</code></span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">按分配容量计费。AWS gp3 基线 3000 IOPS 免费，超出的 IOPS 和吞吐量另收费（$0.005/IOPS/月、$0.04/MB/s/月）</span></div>
+      <div class="warn-box">AWS 块存储不只按 GB 收，IOPS 超基线和吞吐超基线都要加钱，高 IO 场景成本可能翻倍</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">💾</span>
+        <h4>块存储 — 云盘 PL1</h4>
+        <span class="tag tag-store">存储</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">中档云硬盘，适合大多数业务应用。对应 AWS gp3 高 IOPS 配置</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/GB/月</code></span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">按分配容量计费，单价高于 PL0。PL1 是阿里云最常用的通用云盘档位</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">💾</span>
+        <h4>块存储 — 云盘 PL2</h4>
+        <span class="tag tag-store">存储</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">高性能云硬盘，适合数据库等高 IO 场景。对应 AWS io2</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/GB/月</code></span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">按分配容量计费，单价最高。AWS io2 的 IOPS 无免费额度，阶梯递减（前 32K = $0.065/IOPS/月，32K-64K = $0.046，64K+ = $0.032）</span></div>
+      <div class="warn-box">io2 按 IOPS 阶梯收费，IOPS 越高单价越低但总量越大成本越高，需精确预估 IOPS 需求</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">📦</span>
+        <h4>对象存储 — 标准存储</h4>
+        <span class="tag tag-store">存储</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">最常用的对象存储，存频繁访问的数据（图片/视频/日志）。分同城冗余（多 AZ）和本地冗余（单 AZ）</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/GB/月</code></span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">按存储容量月费。同城冗余贵于本地冗余。AWS 还按用量阶梯降价（前 50TB / 51-500TB / 500TB+）</span></div>
+      <div class="warn-box">同城冗余 = 数据跨多 AZ 副本，更安全更贵；本地冗余 = 单 AZ，便宜但 AZ 挂了数据不可用</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">📦</span>
+        <h4>对象存储 — 冷存档存储</h4>
+        <span class="tag tag-store">存储</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">极少访问的冷数据存储（备份 / 归档 / 合规留存），价格极低但取回慢</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/GB/月</code></span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">单价仅标准存储的 1/10 到 1/100。AWS Glacier Deep Archive $0.00099/GB/月，阿里云 $0.002/GB/月</span></div>
+      <div class="warn-box">取回需要分钟到小时级时间，且可能另收恢复费。适合合规留存数据，不适合业务数据</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="icon">📤</span>
+        <h4>对象存储 — 读写/回源流量费</h4>
+        <span class="tag tag-store">存储</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">对象存储的数据读写和外部访问产生的流量费用</div>
+      <div class="card-row"><span class="label">计费单位</span><span class="val"><code>USD/Gbps/月</code>（写/读，带宽承诺）<br><code>USD/GB/月</code>（回源，按量）</span></div>
+      <div class="card-row"><span class="label">计费逻辑</span><span class="val">带宽承诺 = 预留速率固定月费（用没用满都付）；按量 = 实际传输 GB 计费。写贵于读，回源最便宜</span></div>
+      <div class="warn-box">USD/GB（数据量）vs USD/Gbps/月（带宽速率）是完全不同的维度，不可换算。1 Gbps 满速跑一月 ≈ 324 TB。大流量场景带宽承诺碾压按量</div>
+    </div>
+
+  </div>
+
+  <div class="note" style="margin-top:20px">
+    <strong>为什么存储类比实例难对账：</strong> 存储的费用由容量、性能、流量、请求等多个独立维度叠加，且各维度单位互不可换算。
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th class="col-w">计费维度</th><th>含义</th><th>典型单位</th><th>代表产品</th><th>为什么容易踩坑</th><th>对账要点</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="pill pill-blue">按容量</span> 按分配容量收月费</td><td>与实际写入量无关</td><td><code>USD/GB/月</code></td><td>云盘（PL0-PL2）、对象存储</td><td>分配了不用也照付，超配就是浪费</td><td>对账核分配量而非实际使用量</td></tr>
+      <tr><td><span class="pill pill-amber">性能另收</span> IOPS/吞吐超基线加钱</td><td>超基线部分独立计价</td><td><code>USD/IOPS/月</code>、<code>USD/MB/s/月</code></td><td>AWS gp3（3000 IOPS 基线）、io2（无免费额）</td><td>以为只付容量费，高 IO 场景成本可能翻倍</td><td>IOPS 费、吞吐费与容量费分开核对</td></tr>
+      <tr><td><span class="pill pill-green">冷热分层</span> 越冷存越便宜取回越贵</td><td>存储单价与取回费反向</td><td>存 <code>USD/GB/月</code> + 取回费另计</td><td>标准存储 vs 冷存档（Glacier Deep Archive）</td><td>热数据误放冷层，取回费可能反超省下的钱</td><td>按取回频率定层级，不只看存储单价</td></tr>
+      <tr><td><span class="pill pill-purple">多单位叠加</span> 容量/带宽/请求独立计费</td><td>三者互不换算</td><td><code>USD/GB</code> + <code>USD/Gbps/月</code> + <code>USD/万次</code></td><td>对象存储读写/回源流量费</td><td>单位混填则整列报废；GB 与 Gbps 不可换算</td><td>换算锚点：1 Gbps 满速跑一月 ≈ 324 TB，先统一口径再比</td></tr>
+      <tr><td><span class="pill pill-blue">冗余选项</span> 同城冗余贵本地便宜</td><td>多 AZ 副本 vs 单 AZ</td><td><code>USD/GB/月</code>（两档单价）</td><td>对象存储标准存储</td><td>买错档位：多花钱或容灾不达标</td><td>先确认业务容灾要求，再定冗余档</td></tr>
+      <tr><td><strong>对账三步法</strong></td><td colspan="5">存储类对账的标准动作：<strong>第一步认计费维度，第二步对单位，第三步才比价格</strong>——维度不同的两列数字没有可比性，直接比价必错</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  云厂商定价体系速查表 · AWS / GCP / Azure / 阿里云 · 2026-08
+</footer>
+
+
+
+</body></html>
